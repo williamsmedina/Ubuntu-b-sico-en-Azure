@@ -4,7 +4,7 @@ Este repositorio contiene un template de Terraform que crea una infraestructura 
 
 - **Grupo de Recursos**: Se crea con el nombre `rg-<nombre>`.
 - **Virtual Network**: Llamada `vn-<nombre>`, con una subnet definida en `192.168.100.0/24`.
-- **Network Security Group (NSG)**: Configurado para permitir tráfico entrante en el puerto 23.
+- **Network Security Group (NSG)**: Configurado para permitir tráfico entrante en el puerto 22.
 - **IP Pública y NIC**: Asociadas a la máquina virtual.
 - **Máquina Virtual**: Se despliega una VM con Ubuntu 22.04, nombrada `vm-<nombre>`, utilizando el usuario y la contraseña que se ingresan al momento de ejecutar el script.
 
