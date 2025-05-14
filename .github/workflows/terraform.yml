@@ -25,21 +25,21 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: 📥 Checkout repo
+      - name: Checkout repo
         uses: actions/checkout@v3
 
-      - name: 🧱 Setup Terraform
+      - name: Setup Terraform
         uses: hashicorp/setup-terraform@v2
         with:
           terraform_version: 1.5.7
 
-      - name: ⚙️ Terraform Init
+      - name: ⚙Terraform Init
         run: terraform init
 
-      - name: 📐 Terraform Plan
+      - name: Terraform Plan
         run: terraform plan -out=tfplan
 
-      - name: 🚀 Terraform Apply
+      - name: Terraform Apply
         if: github.ref == 'refs/heads/main'
         run: terraform apply -auto-approve tfplan
 
