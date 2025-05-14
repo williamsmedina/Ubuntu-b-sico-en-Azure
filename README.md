@@ -1,4 +1,4 @@
-# Terraform Template para VM en Azure
+# Terraform Template para VM en Azure.
 
 Este repositorio contiene un template de Terraform que crea una infraestructura en Azure compuesta por:
 
