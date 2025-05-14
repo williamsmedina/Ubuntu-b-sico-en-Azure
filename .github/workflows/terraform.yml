@@ -1,4 +1,4 @@
-name: 'Terraform Deploy'
+name: 'Terraform Deploy to Azure'
 
 on:
   push:
@@ -6,10 +6,16 @@ on:
       - main
 
 env:
+  # Azure Provider Auth
   ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
   ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
   ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
   ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
+
+  # Terraform variables
+  TF_VAR_admin_username: ${{ secrets.TF_VAR_admin_username }}
+  TF_VAR_admin_password: ${{ secrets.TF_VAR_admin_password }}
+  TF_VAR_vm_name:        ${{ secrets.TF_VAR_vm_name }}
 
 jobs:
   terraform:
@@ -17,20 +23,21 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repo
+      - name: 📥 Checkout repo
         uses: actions/checkout@v3
 
-      - name: Setup Terraform
+      - name: 🧱 Setup Terraform
         uses: hashicorp/setup-terraform@v2
         with:
           terraform_version: 1.5.7
 
-      - name: Terraform Init
+      - name: ⚙️ Terraform Init
         run: terraform init
 
-      - name: Terraform Plan
+      - name: 📐 Terraform Plan
         run: terraform plan -out=tfplan
 
-      - name: Terraform Apply
+      - name: 🚀 Terraform Apply
         if: github.ref == 'refs/heads/main'
         run: terraform apply -auto-approve tfplan
+
