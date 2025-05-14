@@ -16,6 +16,8 @@ env:
   TF_VAR_admin_username: ${{ secrets.TF_VAR_admin_username }}
   TF_VAR_admin_password: ${{ secrets.TF_VAR_admin_password }}
   TF_VAR_vm_name:        ${{ secrets.TF_VAR_vm_name }}
+  TF_VAR_name:           ${{ secrets.TF_VAR_name }}
+
 
 jobs:
   terraform:
