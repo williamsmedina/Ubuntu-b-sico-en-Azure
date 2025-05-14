@@ -1,0 +1,40 @@
+name: Terraform Deploy/Destroy
+
+on:
+  workflow_dispatch:
+    inputs:
+      action:
+        description: "Acción a ejecutar"
+        required: true
+        default: "apply"
+        type: choice
+        options:
+          - apply
+          - destroy
+
+jobs:
+  terraform:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repo
+      uses: actions/checkout@v3
+
+    - name: Set up Terraform
+      uses: hashicorp/setup-terraform@v3
+
+    - name: Terraform Init
+      run: terraform init
+    - name: Terraform ${{ github.event.inputs.action }}
+      env:
+        ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
+        ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
+        ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
+        ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
+
+        # Terraform variables
+        TF_VAR_admin_username: ${{ secrets.TF_VAR_admin_username }}
+        TF_VAR_admin_password: ${{ secrets.TF_VAR_admin_password }}
+        TF_VAR_vm_name:        ${{ secrets.TF_VAR_vm_name }}
+        TF_VAR_name:           ${{ secrets.TF_VAR_name }}
+      run: terraform ${{ github.event.inputs.action }} -auto-approve
